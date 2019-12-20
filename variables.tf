@@ -32,7 +32,7 @@ variable "environment" {
 
 variable "role_tags" {
   description = "Additional tags to be put on iam role"
-  type        = "map(any)"
+  type        = "map"
   default     = {}
 }
 
