@@ -11,7 +11,7 @@ locals {
   role_name_max_length      = 64
   role_name_format          = "InstanceRole_%s-%s-"
   role_name_prefix          = "${format(local.role_name_format, lower(var.service_name), lower(var.cluster_role))}"
-  role_name_max_byte_length = "${(local.role_name_max_length - length(local.role_name_prefix)) / 2}"
+  role_name_max_byte_length = "${floor((local.role_name_max_length - length(local.role_name_prefix)) / 2)}"
   role_name_byte_length     = "${min(local.max_byte_length, local.role_name_max_byte_length)}"
 }
 
@@ -44,7 +44,7 @@ module "this" {
 
   role_tags = "${merge(var.role_tags, map(
     "Service", "${var.service_name}"
-    ))}"
+  ))}"
 
   role_assume_policy         = "${data.aws_iam_policy_document.this.json}"
   role_force_detach_policies = "${var.role_force_detach_policies}"

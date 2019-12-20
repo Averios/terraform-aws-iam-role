@@ -5,7 +5,7 @@ locals {
 }
 
 module "random" {
-  source = "github.com/traveloka/terraform-aws-resource-naming.git?ref=v0.7.1"
+  source = "git@github.com:Averios/terraform-aws-resource-naming.git?ref=terraform0.12-compatibility"
 
   name_prefix   = "${local.name_prefix}"
   resource_type = "iam_role"
@@ -46,7 +46,7 @@ module "this" {
 
   role_tags = "${merge(var.role_tags, map(
     "Service", "${var.service_name}"
-    ))}"
+  ))}"
 
   role_assume_policy         = "${var.lambda_type == true ? data.aws_iam_policy_document.edge.json : data.aws_iam_policy_document.this.json}"
   role_force_detach_policies = "${var.role_force_detach_policies}"

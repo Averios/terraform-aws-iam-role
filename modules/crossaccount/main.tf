@@ -10,13 +10,13 @@ data "aws_iam_policy_document" "doc" {
 }
 
 module "aws-resource-naming_iam_role" {
-  source        = "git::https://github.com/traveloka/terraform-aws-resource-naming.git?ref=v0.13.0"
+  source        = "git::https://github.com/Averios/terraform-aws-resource-naming.git?ref=terraform0.12-compatibility"
   name_prefix   = "${var.role_name}"
   resource_type = "iam_role"
 }
 
 locals {
-  additional_role_path = "${substr(var.role_path, 0, 1) == "/" ? substr(var.role_path, 1, length(var.role_path)-1) : var.role_path}"
+  additional_role_path = "${substr(var.role_path, 0, 1) == "/" ? substr(var.role_path, 1, length(var.role_path) - 1) : var.role_path}"
 }
 
 # Module, the parent module.
@@ -29,7 +29,7 @@ module "crossacount" {
 
   role_tags = "${merge(var.role_tags, map(
     "Service", "${var.service_name}"
-    ))}"
+  ))}"
 
   role_assume_policy         = "${data.aws_iam_policy_document.doc.json}"
   role_force_detach_policies = "${var.role_force_detach_policies}"
