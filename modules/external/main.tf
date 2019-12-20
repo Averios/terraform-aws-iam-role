@@ -11,23 +11,22 @@ resource "null_resource" "is_path_valid" {
 
 # Trust relationships policy document
 data "aws_iam_policy_document" "doc" {
-  statement = {
+  statement {
     sid     = "AllowAssumeRoleForAnotherAccount"
     actions = ["sts:AssumeRole"]
 
-    principals = {
+    principals {
       type        = "AWS"
       identifiers = ["${var.account_id}"]
     }
 
-    condition = [
-      {
-        test     = "StringEquals"
-        variable = "sts:ExternalId"
+    condition {
+      test     = "StringEquals"
+      variable = "sts:ExternalId"
 
-        values = ["${var.external_id}"]
-      },
-    ]
+      values = ["${var.external_id}"]
+    }
+    
   }
 }
 

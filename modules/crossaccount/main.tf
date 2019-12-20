@@ -1,10 +1,10 @@
 data "aws_iam_policy_document" "doc" {
-  statement = {
+  statement {
     actions = ["sts:AssumeRole"]
 
-    principals = {
+    principals {
       type        = "AWS"
-      identifiers = ["${var.trusted_role_arns}"]
+      identifiers = "${var.trusted_role_arns}"
     }
   }
 }

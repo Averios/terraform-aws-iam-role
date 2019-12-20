@@ -17,10 +17,10 @@ locals {
 
 # Trust relationship policy document for AWS Service.
 data "aws_iam_policy_document" "this" {
-  statement = {
+  statement {
     actions = ["sts:AssumeRole"]
 
-    principals = {
+    principals {
       type        = "Service"
       identifiers = ["${var.aws_service}"]
     }
